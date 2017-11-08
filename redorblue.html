@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Red or Blue</title>
+    <style media="screen">
+      .flex-container {
+        display: flex;
+      }
+
+      #circle {
+        background-color: Green;
+        border-radius: 50%;
+        width: 200px;
+        height: 200px;
+
+      }
+      .flex-container .circle p {
+        justify-content: center;
+        text-align: center;
+      }
+      div {
+        border: dashed green;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="flex-container">
+      <div class="score">
+        This will be the 1st Container
+      </div>
+      <div id="circle">
+        <p>My Circle</p>
+      </div>
+    </div><!-- End of Parent Flex Container   -->
+  </body>
+  <script type="text/javascript">
+    let circleColor = document.getElementById('circle')
+    function updateCircle(circleColor) {
+      let numColor = Math.floor(Math.random() * 2) + 1;
+      console.log(circleColor);
+      console.log(numColor);
+      if (numColor === 1){
+        circleColor.style.backgroundColor = "DodgerBlue";
+      }
+      if (numColor === 2) {
+        circleColor.style.backgroundColor = "Red";
+      }
+    }
+    updateCircle(circleColor);
+  </script>
+</html>
