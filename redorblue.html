@@ -7,7 +7,9 @@
       .flex-container {
         display: flex;
       }
-
+      .flex-container .score {
+        padding: 25px;
+      }
       #circle {
         background-color: Green;
         border-radius: 50%;
@@ -15,7 +17,7 @@
         height: 200px;
 
       }
-      .flex-container .circle p {
+      .flex-container #circle p {
         justify-content: center;
         text-align: center;
       }
@@ -35,18 +37,41 @@
     </div><!-- End of Parent Flex Container   -->
   </body>
   <script type="text/javascript">
-    let circleColor = document.getElementById('circle')
+    let blue = "DodgerBlue";
+    let red = "Red";
+    let circleColor = document.getElementById('circle');
+    let currentColor;
+    let blueCounter = !sessionStorage ? 0 : sessionStorage.getItem('blueCounterSetting');
+    let redCounter = !sessionStorage ? 0 : sessionStorage.getItem('redCounterSetting');
+
     function updateCircle(circleColor) {
       let numColor = Math.floor(Math.random() * 2) + 1;
       console.log(circleColor);
-      console.log(numColor);
+      console.log("Current Number is " + numColor);
       if (numColor === 1){
-        circleColor.style.backgroundColor = "DodgerBlue";
+        circleColor.style.backgroundColor = blue;
+        currentColor = blue;
+        blueCounter = Number(blueCounter) + 1;
+        console.log("Current Color is " + currentColor);
+        console.log("Current blue counter is " + blueCounter);
+        sessionStorage.setItem('blueCounterSetting', blueCounter);
       }
       if (numColor === 2) {
-        circleColor.style.backgroundColor = "Red";
+        circleColor.style.backgroundColor = red;
+        currentColor = red;
+        redCounter = Number(redCounter) + 1;
+        console.log("Current Color is " + currentColor);
+        console.log("Current red counter is " + redCounter);
+        sessionStorage.setItem('redCounterSetting', redCounter);
       }
     }
     updateCircle(circleColor);
+
+    sessionStorage.colorSetting = currentColor;
+    sessionStorage['colorSetting'] = currentColor;
+    sessionStorage.setItem('colorSetting', currentColor);
+
+
   </script>
+
 </html>
