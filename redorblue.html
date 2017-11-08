@@ -3,7 +3,12 @@
   <head>
     <meta charset="utf-8">
     <title>Red or Blue</title>
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+
     <style media="screen">
+      body {
+        font-family: 'Raleway', sans-serif;
+      }
       .flex-container {
         display: flex;
       }
@@ -11,38 +16,47 @@
         padding: 25px;
       }
       #circle {
-        background-color: Green;
         border-radius: 50%;
         width: 200px;
         height: 200px;
-
+        box-shadow: 2px 2px 5px rgba(0,0,0,0.5),
+            inset 5px 5px 8px rgba(0,0,0,0.5);
       }
       .flex-container #circle p {
         justify-content: center;
         text-align: center;
       }
-      div {
-        border: dashed green;
-      }
     </style>
   </head>
   <body>
     <div class="flex-container">
-      <div class="score">
-        This will be the 1st Container
+      <div class="myTitle">
+        <h1>Welcome to the Red or Blue Show</h1>
+        <h2>Your ball is below</h2>
       </div>
+    </div>
+    <div class="flex-container">
+
       <div id="circle">
         <p>My Circle</p>
       </div>
     </div><!-- End of Parent Flex Container   -->
+    <div class="flex-container">
+      <div class="score">
+        <h2>You've seen blue <span id='blueCount'></span> times.</h2>
+      </div>
+      <div class="score">
+         <h2>You've seen red <span id='redCount'></span> times.</h2>
+      </div>
+    </div>
   </body>
   <script type="text/javascript">
     let blue = "DodgerBlue";
     let red = "Red";
     let circleColor = document.getElementById('circle');
-    let currentColor;
-    let blueCounter = !sessionStorage ? 0 : sessionStorage.getItem('blueCounterSetting');
-    let redCounter = !sessionStorage ? 0 : sessionStorage.getItem('redCounterSetting');
+    let currentColor = !localStorage ? null : localStorage.colorSetting;
+    let blueCounter = !localStorage ? 0 : localStorage.getItem('blueCounterSetting');
+    let redCounter = !localStorage ? 0 : localStorage.getItem('redCounterSetting');
 
     function updateCircle(circleColor) {
       let numColor = Math.floor(Math.random() * 2) + 1;
@@ -54,7 +68,8 @@
         blueCounter = Number(blueCounter) + 1;
         console.log("Current Color is " + currentColor);
         console.log("Current blue counter is " + blueCounter);
-        sessionStorage.setItem('blueCounterSetting', blueCounter);
+        localStorage.setItem('blueCounterSetting', blueCounter);
+        document.getElementById('blueCount').innerHTML = localStorage.getItem('blueCounterSetting');
       }
       if (numColor === 2) {
         circleColor.style.backgroundColor = red;
@@ -62,16 +77,19 @@
         redCounter = Number(redCounter) + 1;
         console.log("Current Color is " + currentColor);
         console.log("Current red counter is " + redCounter);
-        sessionStorage.setItem('redCounterSetting', redCounter);
+        localStorage.setItem('redCounterSetting', redCounter);
+        document.getElementById('redCount').innerHTML = localStorage.getItem('redCounterSetting');
       }
     }
+    // Set initial count of times blue, red seen.
+    document.getElementById('redCount').innerHTML = redCounter;
+    document.getElementById('blueCount').innerHTML = blueCounter;
+
+    // Execute script to randomly set ball color
     updateCircle(circleColor);
 
-    sessionStorage.colorSetting = currentColor;
-    sessionStorage['colorSetting'] = currentColor;
-    sessionStorage.setItem('colorSetting', currentColor);
-
-
+    // Set local storage of current color
+    localStorage.setItem('colorSetting', currentColor);
   </script>
 
 </html>
